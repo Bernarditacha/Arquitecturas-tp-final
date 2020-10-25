@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.practico.integrador;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TpFinalApplication {
+public class AppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TpFinalApplication.class, args);
+		SpringApplication.run(AppApplication.class, args);
 	}
 
 }
