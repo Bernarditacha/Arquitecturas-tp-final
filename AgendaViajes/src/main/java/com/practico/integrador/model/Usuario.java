@@ -12,7 +12,6 @@ import lombok.Data;
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	private String usuario;
@@ -22,8 +21,9 @@ public class Usuario {
 		super();
 	}
 
-	public Usuario(String usuario, String contrasenia) {
+	public Usuario(Long id, String usuario, String contrasenia) {
 		super();
+		this.id = id;
 		this.usuario = usuario;
 		this.contrasenia = contrasenia;
 	}
