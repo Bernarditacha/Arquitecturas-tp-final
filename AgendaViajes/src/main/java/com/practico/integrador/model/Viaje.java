@@ -32,28 +32,25 @@ public class Viaje {
 	
 	private String descripcion;
 	
-	@ManyToOne
-	private Usuario usuario;
 	
 	public Viaje() {
 		super();
 	}
 
 	public Viaje(String nombre, String ciudadDestino, Timestamp fechaInicio, Timestamp fechaFin,
-			String descripcion, Usuario usuario) {
+			String descripcion) {
 		super();
 		this.nombre = nombre;
 		this.ciudadDestino = ciudadDestino;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.descripcion = descripcion;
-		this.usuario = usuario;
 	}
 
 	@Override
 	public String toString() {
 		return "Viaje [id=" + id + ", nombre=" + nombre + ", ciudadDestino=" + ciudadDestino + ", fechaInicio="
-				+ fechaInicio + ", fechaFin=" + fechaFin + ", descripcion=" + descripcion +  ", usuario=" + usuario + "]";
+				+ fechaInicio + ", fechaFin=" + fechaFin + ", descripcion=" + descripcion + "]";
 	}
 
 }
