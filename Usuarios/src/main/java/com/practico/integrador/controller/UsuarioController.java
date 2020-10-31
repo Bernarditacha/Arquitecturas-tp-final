@@ -1,5 +1,7 @@
 package com.practico.integrador.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.practico.integrador.model.Usuario;
 import com.practico.integrador.repository.UsuarioRepository;
+import com.practico.integrador.utils.ResponseError;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,12 +64,17 @@ public class UsuarioController {
 
 	@ApiOperation(value = "Edicion de usuario", response = Usuario.class)
 	@PutMapping("/editar/{id}")
-	Usuario updatePersona(@RequestBody Usuario newUsuario, @PathVariable Long id) {
-		Usuario usuario = repository.findById(id).get();
-		usuario.setUsuario(newUsuario.getUsuario());
-		usuario.setContrasenia(newUsuario.getContrasenia());
-		repository.save(usuario);
-		return usuario;
+	Object updatePersona(@RequestBody Usuario newUsuario, @PathVariable Long id) {
+		ResponseError error = new ResponseError("Error", 400, "No existe el usuario");
+		Optional<Usuario> usuario = repository.findById(id);
+		if(usuario.isPresent()) {
+			usuario.get().setUsuario(newUsuario.getUsuario());
+			usuario.get().setContrasenia(newUsuario.getContrasenia());
+			repository.save(usuario.get());
+			return usuario;
+		} else {
+			return error;
+		}
 	}
 
 	// Baja
