@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Entity
@@ -13,8 +14,9 @@ public class Usuario {
 
 	@Id
 	private Long id;
-
+	@ApiModelProperty(notes="Nombre de usuario", name="usuario", required=true, value="test username")
 	private String usuario;
+	@ApiModelProperty(notes="Contraseña de usuario", name="contrasenia", required=true, value="test contrasenia")
 	private String contrasenia;
 	
 	public Usuario() {

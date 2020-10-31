@@ -14,8 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.practico.integrador.model.Usuario;
 import com.practico.integrador.repository.UsuarioRepository;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("usuarios")
+@Api(value = "UsuarioControllerJpa", description = "REST API Usuario")
 public class UsuarioController {
 
 	@Qualifier("usuarioRepository")
@@ -26,25 +32,34 @@ public class UsuarioController {
 		this.repository = repository;
 	}
 
-	// Recupero todos los usuarios
+	@ApiOperation(value = "Recupero el universo de usuarios", response = Usuario.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
+	@ApiResponse(code = 401, message = "not authorized!"),
+	@ApiResponse(code = 403, message = "forbidden!!!"),
+	@ApiResponse(code = 404, message = "not found!!!") })
 	@GetMapping
 	public Iterable<Usuario> getUsuarios() {
 		return repository.findAll();
 	}
 
-	// Permite recuperar a determinado usuario segun pass y contrasenia
+	@ApiOperation(value = "Recupero un usuario con determinado nombre y contraseña", response = Usuario.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
+	@ApiResponse(code = 401, message = "not authorized!"),
+	@ApiResponse(code = 403, message = "forbidden!!!"),
+	@ApiResponse(code = 404, message = "not found!!!") })
 	@GetMapping("/findByUsuarioAndContrasenia/{usuario}/{contrasenia}")
-	public Usuario findByUsuarioAndContrasenia(@PathVariable("usuario") String usuario, @PathVariable("contrasenia") String contrasenia) {
+	public Usuario findByUsuarioAndContrasenia(@PathVariable("usuario") String usuario,
+			@PathVariable("contrasenia") String contrasenia) {
 		return repository.findByUsuarioAndContrasenia(usuario, contrasenia);
 	}
 
-	// Alta
+	@ApiOperation(value = "Alta de usuario", response = Usuario.class)
 	@PostMapping("/nuevo")
 	public Usuario addUsuario(@RequestBody Usuario u) {
 		return repository.save(u);
 	}
 
-	// Modificacion
+	@ApiOperation(value = "Edicion de usuario", response = Usuario.class)
 	@PutMapping("/editar/{id}")
 	Usuario updatePersona(@RequestBody Usuario newUsuario, @PathVariable Long id) {
 		Usuario usuario = repository.findById(id).get();
@@ -55,6 +70,7 @@ public class UsuarioController {
 	}
 
 	// Baja
+	@ApiOperation(value = "Baja de usuario", response = Usuario.class)
 	@DeleteMapping("/{id}")
 	void deleteUsuario(@PathVariable Long id) {
 		repository.deleteById(id);
