@@ -1,7 +1,8 @@
 package com.practico.integrador.utils;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,21 +21,43 @@ public class LoadDB {
     CommandLineRunner initDatabase(@Qualifier("viajeRepository") ViajeRepository viajeRepository) {
         return args -> {
       
-        	//Borro datos de las talas
-        	//viajeRepository.deleteAll();
+        	//Borro datos de las tablas
+        	viajeRepository.deleteAll();
         	
             //Creacion de viajes
            
-            Calendar calendar = Calendar.getInstance();
-            Date now = calendar.getTime();
-
-            calendar.set(Calendar.MONTH, 11);
-            calendar.set(Calendar.YEAR, 2019);
-            Timestamp inicio = new Timestamp(now.getTime());
-            Timestamp fin = new Timestamp (25/12/2020);
-
-            viajeRepository.save(new Viaje("Vacaciones verano", "Medellin", inicio, fin, "Viaje con amigos"));
+        	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        	
+        	//Viaje pendiente
+        	Date dateInicioP = dateFormat.parse("1/11/2020");
+        	long timeInicioP = dateInicioP.getTime();
+        	Timestamp inicioP = new Timestamp(timeInicioP);
+        	
+        	Date dateFinP = dateFormat.parse("1/12/2020");
+        	long timeFinP = dateFinP.getTime();
+        	Timestamp finP = new Timestamp(timeFinP);
+        	
+            viajeRepository.save(new Viaje(new Long(1), "Vacaciones verano", "Medellin", inicioP, finP, "Viaje con amigos", new Long(4)));
+            
+            //Viaje realizado
+        	Date dateInicioR = dateFormat.parse("1/11/2020");
+        	long timeInicioR = dateInicioR.getTime();
+        	Timestamp inicioR = new Timestamp(timeInicioR);
+        	
+        	Date dateFinR = dateFormat.parse("2/11/2020");
+        	long timeFinR = dateFinR.getTime();
+        	Timestamp finR = new Timestamp(timeFinR);
+        	
+            viajeRepository.save(new Viaje(new Long(2), "Trabajo", "Buenos Aires", inicioR, finR, "Conferencia presencial", new Long(4)));
   
+            //Otro usuario
+            viajeRepository.save(new Viaje(new Long(3), "Travel hawai", "Hawai", inicioP, finP, "Vacaciones con familia", new Long(3)));
+
+            Iterable<Viaje> viajes = viajeRepository.findAll();;
+            System.out.println("Viajes:");
+            for (Viaje viaje : viajes) {
+                System.out.println("\t" + viaje);
+            }
         };
     }
     
