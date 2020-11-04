@@ -9,7 +9,12 @@ import com.practico.integrador.model.Viaje;
 
 public interface ViajeRepository extends JpaRepository<Viaje, Long> {
 
-	@Query("SELECT v FROM Viaje v")
-	List<Viaje> getRealizados();
+	@Query("select v from Viaje v where v.fechaFin < now() and v.usuario = :usuario")
+	List<Viaje> getRealizados(Long usuario);
+	
+	@Query("select v from Viaje v where v.fechaFin > now() and v.usuario = :usuario")
+	List<Viaje> getPendientes(Long usuario);
+	
+	List<Viaje> findByUsuario(Long usuario);
 	
 }

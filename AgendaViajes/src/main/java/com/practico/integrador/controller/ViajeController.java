@@ -34,9 +34,21 @@ public class ViajeController {
 	    }    
 
 	    //Permite recuperar todos los viajes realizados
-	    @GetMapping("/getRealizados")
-	    public List<Viaje> getRealizados() {
-	        return repository.getRealizados();
+	    @GetMapping("/getRealizados/usuario/{usuario}")
+	    public List<Viaje> getRealizados(@PathVariable("usuario") Long usuario) {
+	        return repository.getRealizados(usuario);
+	    }
+	    
+	    //Permite recuperar todos los viajes pendientes
+	    @GetMapping("/getPendientes/usuario/{usuario}")
+	    public List<Viaje> getPendientes(@PathVariable("usuario") Long usuario) {
+	        return repository.getPendientes(usuario);
+	    }
+	    
+	    //Permite recuperar todos los viajes de un usuario en particular
+	    @GetMapping("/findByUsuario/{usuario}")
+	    public List<Viaje> findByUsuario(@PathVariable("usuario") Long usuario) {
+	        return repository.findByUsuario(usuario);
 	    }
 	    
 	    //Alta

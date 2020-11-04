@@ -4,10 +4,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
@@ -16,7 +13,6 @@ import lombok.Data;
 public class Viaje {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String nombre;
@@ -32,25 +28,28 @@ public class Viaje {
 	
 	private String descripcion;
 	
+	private Long usuario;
 	
 	public Viaje() {
 		super();
 	}
 
-	public Viaje(String nombre, String ciudadDestino, Timestamp fechaInicio, Timestamp fechaFin,
-			String descripcion) {
+	public Viaje(Long id, String nombre, String ciudadDestino, Timestamp fechaInicio, Timestamp fechaFin,
+			String descripcion, Long usuario) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.ciudadDestino = ciudadDestino;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.descripcion = descripcion;
+		this.usuario = usuario;
 	}
 
 	@Override
 	public String toString() {
 		return "Viaje [id=" + id + ", nombre=" + nombre + ", ciudadDestino=" + ciudadDestino + ", fechaInicio="
-				+ fechaInicio + ", fechaFin=" + fechaFin + ", descripcion=" + descripcion + "]";
+				+ fechaInicio + ", fechaFin=" + fechaFin + ", descripcion=" + descripcion + ", usuario=" + usuario + "]";
 	}
 
 }
