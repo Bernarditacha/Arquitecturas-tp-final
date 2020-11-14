@@ -50,7 +50,7 @@ public class UsuarioController {
 	@ApiResponse(code = 401, message = "not authorized!"),
 	@ApiResponse(code = 403, message = "forbidden!!!"),
 	@ApiResponse(code = 404, message = "not found!!!") })
-	@GetMapping("/findByUsuarioAndContrasenia/usuario/{usuario}/contrasenia/{contrasenia}")
+	@GetMapping("/login/usuario/{usuario}/contrasenia/{contrasenia}")
 	public Usuario findByUsuarioAndContrasenia(@PathVariable("usuario") String usuario,
 			@PathVariable("contrasenia") String contrasenia) {
 		return repository.findByUsuarioAndContrasenia(usuario, contrasenia);
