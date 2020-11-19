@@ -37,6 +37,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 				Claims claims = validateToken(request);
 				if (claims.get("authorities") != null) {
 					setUpSpringAuthentication(claims);
+					System.out.println("doFilterInternal");
+					System.out.println(SecurityContextHolder.getContext().getAuthentication());
 				} else {
 					SecurityContextHolder.clearContext();
 				}
@@ -76,7 +78,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	}
 
 	private boolean existeJWTToken(HttpServletRequest request, HttpServletResponse res) {
-		String authenticationHeader = request.getHeader(HEADER);
+		String authenticationHeader = request.getHeader(HEADER);		
 		if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))
 			return false;
 		return true;
