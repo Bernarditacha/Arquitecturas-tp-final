@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true) //Necesario para que funcione la anotación en el servicio oldman 
+//@EnableGlobalMethodSecurity(prePostEnabled = true) //Necesario para que funcione la anotación en el servicio oldman 
 public class LoginConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
@@ -22,9 +22,8 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
 		    //Agrega el método de filtrado que codificamos nosotros 
 			.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/greetings").permitAll()
-			.antMatchers(HttpMethod.POST, "/user").permitAll()
-			//.antMatchers(HttpMethod.GET, "/oldman").hasAuthority("LINK") // Esta línea es otra manera de agregar requerimientos de logeo.
+			.antMatchers(HttpMethod.GET, "/usuarios/login").permitAll()
+			.antMatchers(HttpMethod.POST, "/usuarios/nuevo").permitAll()
 			.anyRequest().authenticated(); 
 	}
 }
