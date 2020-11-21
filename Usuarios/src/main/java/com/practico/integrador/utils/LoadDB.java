@@ -17,10 +17,8 @@ public class LoadDB {
         return args -> {
       
         	//Creacion de usuarios
-        	usuarioRepository.save(new Usuario(new Long(1), "user", "pass"));
-        	usuarioRepository.save(new Usuario(new Long(2), "bren", "bren01"));
-        	usuarioRepository.save(new Usuario(new Long(3), "ger", "ger01"));
-        	usuarioRepository.save(new Usuario(new Long(4), "berni", "berni01"));
+        	usuarioRepository.save(new Usuario(new Long(1), "user", "1a1dc91c907325c69271ddf0c944bc72"));
+        	usuarioRepository.save(new Usuario(new Long(2), "user1", "a722c63db8ec8625af6cf71cb8c2d939"));
         	
             Iterable<Usuario> usuarios = usuarioRepository.findAll();;
             System.out.println("Usuarios:");
