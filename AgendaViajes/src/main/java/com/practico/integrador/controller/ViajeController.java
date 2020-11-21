@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.practico.integrador.model.Viaje;
 import com.practico.integrador.repository.ViajeRepository;
+import com.practico.integrador.utils.ReporteZonasVisitadas;
 
 @RestController
 @RequestMapping("viajes")
@@ -36,19 +37,25 @@ public class ViajeController {
 	    //Permite recuperar todos los viajes realizados
 	    @GetMapping("/getRealizados/usuario/{usuario}")
 	    public List<Viaje> getRealizados(@PathVariable("usuario") Long usuario) {
-	        return repository.getRealizados(usuario);
+	        return repository.findByRealizados(usuario);
 	    }
 	    
 	    //Permite recuperar todos los viajes pendientes
 	    @GetMapping("/getPendientes/usuario/{usuario}")
 	    public List<Viaje> getPendientes(@PathVariable("usuario") Long usuario) {
-	        return repository.getPendientes(usuario);
+	        return repository.findByPendientes(usuario);
 	    }
 	    
 	    //Permite recuperar todos los viajes de un usuario en particular
 	    @GetMapping("/findByUsuario/{usuario}")
 	    public List<Viaje> findByUsuario(@PathVariable("usuario") Long usuario) {
 	        return repository.findByUsuario(usuario);
+	    }
+	    
+	    //Permite recuperar las zonas geograficas mas visitadas indicando su nombre y cantidad de viajes
+	    @GetMapping("/findByZonasGeograficasMasVisitadas")
+	    public List<ReporteZonasVisitadas> findByZonasGeograficasMasVisitadas() {
+	        return repository.findByZonasGeograficasMasVisitadas();
 	    }
 	    
 	    //Alta
