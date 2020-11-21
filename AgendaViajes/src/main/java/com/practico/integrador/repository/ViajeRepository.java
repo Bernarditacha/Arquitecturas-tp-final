@@ -1,5 +1,6 @@
 package com.practico.integrador.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,5 +21,10 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
 	
 	@Query("select v.ciudadDestino as zona, count(*) as viajes from Viaje v group by v.ciudadDestino order by count(*) desc")
 	List<ReporteZonasVisitadas> findByZonasGeograficasMasVisitadas();
+	
+	@Query("select v from Viaje v where (v.fechaInicio <= :fechaInicio and v.fechaFin >= :fechaFin) and v.usuario = :usuario")
+	List<Viaje> findByFechasAndUsuario(Timestamp fechaInicio, Timestamp fechaFin, Long usuario);
+
+	List<Viaje> findByCiudadDestinoAndUsuario(String ciudadDestino, Long usuario);
 	
 }

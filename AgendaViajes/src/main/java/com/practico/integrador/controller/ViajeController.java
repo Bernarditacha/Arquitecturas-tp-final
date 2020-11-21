@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practico.integrador.dto.ViajeDTO;
 import com.practico.integrador.model.Viaje;
 import com.practico.integrador.repository.ViajeRepository;
 import com.practico.integrador.utils.ReporteZonasVisitadas;
@@ -56,6 +57,18 @@ public class ViajeController {
 	    @GetMapping("/findByZonasGeograficasMasVisitadas")
 	    public List<ReporteZonasVisitadas> findByZonasGeograficasMasVisitadas() {
 	        return repository.findByZonasGeograficasMasVisitadas();
+	    }
+	    
+	    //Permite recuperar los viajes de un usuario en un rago de fecha determinado
+	    @PostMapping("/findByFechasAndUsuario")
+	    public List<Viaje> findByFechasAndUsuario(ViajeDTO viaje) {
+	        return repository.findByFechasAndUsuario(viaje.getFechaInicio(), viaje.getFechaFin(), viaje.getUsuario());
+	    }
+	    
+	    //Permite recuperar los viajes de un usuario filtrados por zona geografica
+	    @GetMapping("/findByCiudadDestinoAndUsuario/{ciudad}/{usuario}")
+	    public List<Viaje> findByCiudadDestinoAndUsuario(@PathVariable("ciudad") String ciudad, @PathVariable("usuario") Long usuario) {
+	        return repository.findByCiudadDestinoAndUsuario(ciudad, usuario);
 	    }
 	    
 	    //Alta
