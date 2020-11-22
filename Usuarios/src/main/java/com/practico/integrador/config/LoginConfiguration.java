@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -14,10 +15,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 //@EnableGlobalMethodSecurity(prePostEnabled = true) //Necesario para que funcione la anotación en el servicio oldman 
 public class LoginConfiguration extends WebSecurityConfigurerAdapter {
-
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+	        web.ignoring().antMatchers("/v2/api-docs",
+	                "/configuration/ui",
+	                "/swagger-resources/**",
+	                "/configuration/security",
+	                "/swagger-ui.html",
+	                "/webjars/**");
+	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		//Desactiva el método por defecto
+		//Desactiva el método por defecto 
 		http.csrf().disable()
 		    //Agrega el método de filtrado que codificamos nosotros 
 			.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
@@ -25,5 +36,6 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET, "/usuarios/login").permitAll()
 			.antMatchers(HttpMethod.POST, "/usuarios/nuevo").permitAll()
 			.anyRequest().authenticated(); 
-	}
+	} 
+	
 }
