@@ -1,5 +1,10 @@
 package com.practico.integrador.controller;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +66,7 @@ public class ViajeController {
 	    
 	    //Permite recuperar los viajes de un usuario en un rago de fecha determinado
 	    @PostMapping("/findByFechasAndUsuario")
-	    public List<Viaje> findByFechasAndUsuario(ViajeDTO viaje) {
+	    public List<Viaje> findByFechasAndUsuario(@RequestBody ViajeDTO viaje) throws ParseException {
 	        return repository.findByFechasAndUsuario(viaje.getFechaInicio(), viaje.getFechaFin(), viaje.getUsuario());
 	    }
 	    
