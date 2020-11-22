@@ -8,7 +8,7 @@ import lombok.Data;
 @Immutable
 public class UsuarioDTO {
 
-	Long id;
 	String nombre;
+	int viajes;
 	
 }
