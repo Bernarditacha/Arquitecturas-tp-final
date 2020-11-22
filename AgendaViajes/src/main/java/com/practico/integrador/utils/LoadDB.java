@@ -90,7 +90,7 @@ public class LoadDB {
             
             
             //Para probar zona geografica mas visitada
-            viajeRepository.save(new Viaje(new Long(4), "Vacaciones verano", "Medellin", inicioP, finP, "Viaje con amigos", new Long(4)));
+            viajeRepository.save(new Viaje(new Long(4), "Vacaciones verano", "Medellin", inicioP, finP, "Viaje con amigos", new Long(3)));
 
         };
     }

@@ -1,11 +1,7 @@
 package com.practico.integrador.controller;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +26,14 @@ import com.practico.integrador.repository.ViajeRepository;
 import com.practico.integrador.utils.ReporteUsuariosViajes;
 import com.practico.integrador.utils.ReporteZonasVisitadas;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("viajes")
+@Api(value = "ViajeControllerJpa", description = "REST API Viajes")
 public class ViajeController {
 
 	 @Qualifier("viajeRepository")
@@ -43,48 +45,64 @@ public class ViajeController {
 	 }
 	 
 	 	//Recupero todos los viajes
+		@ApiOperation(value = "Recupero el universo de viajes", response = Viaje.class)
+		@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
+		@ApiResponse(code = 401, message = "not authorized!"),
+		@ApiResponse(code = 403, message = "forbidden!!!"),
+		@ApiResponse(code = 404, message = "not found!!!") })
 	    @GetMapping	    
 	    public Iterable<Viaje> getViajes() {
 	        return repository.findAll();
 	    }    
 
 	    //Permite recuperar todos los viajes realizados
+		@ApiOperation(value = "Recupero los viajes realizados de un usuario en particular", response = Viaje.class)
 	    @GetMapping("/findByRealizados/usuario/{usuario}")
 	    public List<Viaje> findByRealizados(@PathVariable("usuario") Long usuario) {
 	        return repository.findByRealizados(usuario);
 	    }
 	    
 	    //Permite recuperar todos los viajes pendientes
+		@ApiOperation(value = "Recupero los viajes pendientes de un usuario en particular", response = Viaje.class)
 	    @GetMapping("/findByPendientes/usuario/{usuario}")
 	    public List<Viaje> findByPendientes(@PathVariable("usuario") Long usuario) {
 	        return repository.findByPendientes(usuario);
 	    }
 	    
 	    //Permite recuperar el universo de viajes de un usuario en particular
+		@ApiOperation(value = "Recupero el universo de viajes de un usuario", response = Viaje.class)
+		@ApiResponses(value = { @ApiResponse(code = 200, message = "Success|OK"),
+		@ApiResponse(code = 401, message = "not authorized!"),
+		@ApiResponse(code = 403, message = "forbidden!!!"),
+		@ApiResponse(code = 404, message = "not found!!!") })
 	    @GetMapping("/findByUsuario/{usuario}")
 	    public List<Viaje> findByUsuario(@PathVariable("usuario") Long usuario) {
 	        return repository.findByUsuario(usuario);
 	    }
 	    
 	    //Permite recuperar las zonas geograficas mas visitadas indicando su nombre y cantidad de viajes
+		@ApiOperation(value = "Recupero las zonas geograficas mas visitadas", response = Viaje.class)
 	    @GetMapping("/findByZonasGeograficasMasVisitadas")
 	    public List<ReporteZonasVisitadas> findByZonasGeograficasMasVisitadas() {
 	        return repository.findByZonasGeograficasMasVisitadas();
 	    }
 	    
 	    //Permite recuperar los viajes de un usuario en un rago de fecha determinado
+		@ApiOperation(value = "Recupero los viajes de un usuario dentro de un rango de fechas", response = Viaje.class)
 	    @PostMapping("/findByFechasAndUsuario")
 	    public List<Viaje> findByFechasAndUsuario(@RequestBody ViajeDTO viaje) throws ParseException {
 	        return repository.findByFechasAndUsuario(viaje.getFechaInicio(), viaje.getFechaFin(), viaje.getUsuario());
 	    }
 	    
 	    //Permite recuperar los viajes de un usuario filtrados por zona geografica
+		@ApiOperation(value = "Recupero los viajes de un usuario a una zona geografica en particular", response = Viaje.class)
 	    @GetMapping("/findByCiudadDestinoAndUsuario/{ciudad}/{usuario}")
 	    public List<Viaje> findByCiudadDestinoAndUsuario(@PathVariable("ciudad") String ciudad, @PathVariable("usuario") Long usuario) {
 	        return repository.findByCiudadDestinoAndUsuario(ciudad, usuario);
 	    }
 	    
 	    //Permite recuperar los usuarios junto con su cantidad de viajes realizados
+		@ApiOperation(value = "Recuperar los usuarios junto con su cantidad de viajes realizados", response = Viaje.class)
 	    @GetMapping("/findByUsuariosConMasViajesRealizados")
 	    public List<UsuarioDTO> findByUsuariosConMasViajesRealizados() {
 	    	RestTemplate restTemplate = new RestTemplate();
@@ -111,12 +129,14 @@ public class ViajeController {
 	    }
 	    
 	    //Alta
+		@ApiOperation(value = "Alta de un viaje", response = Viaje.class)
 	    @PostMapping("/nuevo")
 	    public Viaje addViaje(@RequestBody Viaje v) {
 	        return repository.save(v);
 	    }
 
 	    //Baja
+		@ApiOperation(value = "Baja de un viaje", response = Viaje.class)
 	    @DeleteMapping("/{id}")
 	    void deleteViaje(@PathVariable Long id) {
 	        repository.deleteById(id);
