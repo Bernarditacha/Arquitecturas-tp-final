@@ -52,7 +52,7 @@ public class ViajeController {
 	        return repository.findByPendientes(usuario);
 	    }
 	    
-	    //Permite recuperar todos los viajes de un usuario en particular
+	    //Permite recuperar el universo de viajes de un usuario en particular
 	    @GetMapping("/findByUsuario/{usuario}")
 	    public List<Viaje> findByUsuario(@PathVariable("usuario") Long usuario) {
 	        return repository.findByUsuario(usuario);

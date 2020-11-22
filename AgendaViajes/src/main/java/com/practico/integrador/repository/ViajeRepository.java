@@ -27,4 +27,6 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
 
 	List<Viaje> findByCiudadDestinoAndUsuario(String ciudadDestino, Long usuario);
 	
+	
+	
 }
