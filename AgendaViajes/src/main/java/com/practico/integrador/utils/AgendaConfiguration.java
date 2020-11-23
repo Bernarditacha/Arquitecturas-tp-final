@@ -14,18 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 //@EnableGlobalMethodSecurity(prePostEnabled = true) //Necesario para que funcione la anotación en el servicio oldman 
 public class AgendaConfiguration extends WebSecurityConfigurerAdapter {
 	
-	private static final String[] AUTH_WHITELIST = {
-            // -- swagger ui
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**"
-            // other public endpoints of your API may be appended to this array
-    };
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		//Desactiva el método por defecto
@@ -35,7 +23,7 @@ public class AgendaConfiguration extends WebSecurityConfigurerAdapter {
 				
 			.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
-			.antMatchers(AUTH_WHITELIST).permitAll()
+			.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui/**", "/webjars/**").permitAll()
 			.antMatchers(HttpMethod.GET, "/viajes").permitAll()
 			.anyRequest().authenticated();
 	}

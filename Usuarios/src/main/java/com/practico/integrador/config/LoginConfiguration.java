@@ -17,16 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class LoginConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Override
-	public void configure(WebSecurity web) throws Exception {
-	        web.ignoring().antMatchers("/v2/api-docs",
-	                "/configuration/ui",
-	                "/swagger-resources/**",
-	                "/configuration/security",
-	                "/swagger-ui.html",
-	                "/webjars/**");
-	}
-	
-	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		//Desactiva el método por defecto 
 		http.csrf().disable()
@@ -35,6 +25,7 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/usuarios/login").permitAll()
 			.antMatchers(HttpMethod.POST, "/usuarios/nuevo").permitAll()
+			.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui/**", "/webjars/**").permitAll()
 			.anyRequest().authenticated(); 
 	} 
 	
