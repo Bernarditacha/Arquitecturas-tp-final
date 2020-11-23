@@ -1,4 +1,4 @@
-package com.practico.integrador.config;
+package com.practico.integrador.utils;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,8 +37,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 				Claims claims = validateToken(request);
 				if (claims.get("authorities") != null) {
 					setUpSpringAuthentication(claims);
-					//System.out.println("doFilterInternal");
-					//System.out.println(SecurityContextHolder.getContext().getAuthentication());
+					System.out.println("doFilterInternal");
+					System.out.println(SecurityContextHolder.getContext().getAuthentication());
 				} else {
 					SecurityContextHolder.clearContext();
 				}

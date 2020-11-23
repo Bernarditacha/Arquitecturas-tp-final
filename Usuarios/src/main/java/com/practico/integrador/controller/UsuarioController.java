@@ -1,12 +1,17 @@
 package com.practico.integrador.controller;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 
@@ -30,8 +36,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@CrossOrigin
 @RestController
-@RequestMapping("usuarios")
+@RequestMapping("/usuarios")
 @Api(value = "UsuarioControllerJpa", description = "REST API Usuario")
 public class UsuarioController {
 
@@ -59,13 +66,15 @@ public class UsuarioController {
 	@ApiResponse(code = 403, message = "forbidden!!!"),
 	@ApiResponse(code = 404, message = "not found!!!") })
 	@GetMapping("/login")
-	public String findByUsuarioAndContrasenia(@RequestParam("user") String username, @RequestParam("password") String pwd) {		
+	public ResponseEntity<Map<String, String>> findByUsuarioAndContrasenia(@RequestParam("user") String username, @RequestParam("password") String pwd) {
 		Usuario getUser = repository.findByUsuarioAndContrasenia(username, pwd);
-		System.out.println(getUser);
 		if (getUser != null) {
-			return getJWTToken(getUser, true);
+			String jwtResult = getJWTToken(getUser, true).toString();
+			return ResponseEntity.status(HttpStatus.OK).body(Map.of(
+		            "token", jwtResult));
 		} else {
-			return "No existe el usuario";
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
+		            "message", "El usuario no existe"));
 		}
 		
 	}
@@ -95,11 +104,29 @@ public class UsuarioController {
 
 		return "Bearer " + token;
 	}
-
+	
+	@CrossOrigin
 	@ApiOperation(value = "Alta de usuario", response = Usuario.class)
 	@PostMapping("/nuevo")
-	public Usuario addUsuario(@RequestBody Usuario u) {
-		return repository.save(u);
+	public ResponseEntity<Usuario> addUsuario(@RequestBody Usuario u) {
+		Optional<Usuario> exist = repository.findById(u.getId());
+		Usuario response = repository.save(u);
+		if (!exist.isEmpty()) {
+			ResponseEntity.notFound().build();
+			//System.out.println(response);
+		} else {
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+			          .path("/{id}")
+			          .buildAndExpand(response.getId())
+			          .toUri();;
+			return ResponseEntity.created(uri)
+			          .body(response);
+			
+		}
+		//return response;
+		//return repository.save(u);
+		return null;
+		
 	}
 
 	@ApiOperation(value = "Edicion de usuario", response = Usuario.class)

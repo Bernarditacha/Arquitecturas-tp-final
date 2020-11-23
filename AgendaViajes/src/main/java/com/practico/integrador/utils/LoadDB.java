@@ -73,7 +73,7 @@ public class LoadDB {
         	Timestamp finV1 = new Timestamp(timeFinV1);
         	
             vueloRepository.save(new Vuelo(new Long(1), viaje1, inicioV1, finV1, "Primer vuelo", "6.217",
-        			"-75.567 6° 13′ 1″", "Vuelo en business", new Long(1), 1, "Aerolineas Argentinas","Olaya Herrera",
+        			"-75.567 6° 13′ 1″", "Vuelo en business", 1, "Aerolineas Argentinas","Olaya Herrera",
         			"Ministro Pistarini", "C502", "Airbus A380", 0));
           
            //Creacion de plan hotel para viaje 1
@@ -88,6 +88,10 @@ public class LoadDB {
             hotelRepository.save(new Hotel(new Long(1), viaje1, inicioH1, finH1, "Hotel 5 estrellas", "6.25094938278198",
 			"-75.5629577636719", "Gran hotel" , "Calle 54 N° 45-92 Av. Oriental x Caracas", "Matrimonial"));
             
+            
+            //Para probar zona geografica mas visitada
+            viajeRepository.save(new Viaje(new Long(4), "Vacaciones verano", "Medellin", inicioP, finP, "Viaje con amigos", new Long(3)));
+
         };
     }
     

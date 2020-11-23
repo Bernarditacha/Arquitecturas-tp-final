@@ -3,6 +3,7 @@ package com.practico.integrador.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -16,7 +17,7 @@ public abstract class Plan {
 	@Id
 	private long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Viaje viaje;
 	
 	@Column(name="fecha_inicio")
