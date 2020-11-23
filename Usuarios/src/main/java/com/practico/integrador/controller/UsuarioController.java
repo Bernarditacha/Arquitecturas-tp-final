@@ -66,12 +66,8 @@ public class UsuarioController {
 	@ApiResponse(code = 403, message = "forbidden!!!"),
 	@ApiResponse(code = 404, message = "not found!!!") })
 	@GetMapping("/login")
-	public ResponseEntity<Map<String, String>> findByUsuarioAndContrasenia(@RequestParam("user") String username, @RequestParam("password") String pwd) {		
-		System.out.println("Login//////////////////////////////////");
-		System.out.println(username);
-		System.out.println(pwd);
+	public ResponseEntity<Map<String, String>> findByUsuarioAndContrasenia(@RequestParam("user") String username, @RequestParam("password") String pwd) {
 		Usuario getUser = repository.findByUsuarioAndContrasenia(username, pwd);
-		System.out.println(getUser);
 		if (getUser != null) {
 			String jwtResult = getJWTToken(getUser, true).toString();
 			return ResponseEntity.status(HttpStatus.OK).body(Map.of(
