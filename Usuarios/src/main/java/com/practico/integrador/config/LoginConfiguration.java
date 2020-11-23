@@ -18,8 +18,13 @@ public class LoginConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
 		//Desactiva el método por defecto 
-		http.csrf().disable()
+		http
+			.cors()
+	        .disable()
+	        .csrf()
+	        .disable()
 		    //Agrega el método de filtrado que codificamos nosotros 
 			.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
