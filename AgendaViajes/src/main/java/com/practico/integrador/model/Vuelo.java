@@ -16,9 +16,7 @@ public class Vuelo extends Plan{
 	private long id;
 	
 	private String descripcion;
-	
-	private Long usuario;
-	
+		
 	private int nro_vuelo;
 	
 	private String compania;
@@ -48,12 +46,11 @@ public class Vuelo extends Plan{
 	}
 	
 	public Vuelo(long id, Viaje id_viaje, Timestamp fecha_incio, Timestamp fecha_fin, String nombre, String latitud,
-			String longitud, String descripcion, Long usuario, int nro_vuelo, String compania, String aeropuertoEntrada,
+			String longitud, String descripcion, int nro_vuelo, String compania, String aeropuertoEntrada,
 			String aeropuerto_salida, String codigoReserva, String info_avion, int tiempoEscalas) {
 		super(id_viaje, fecha_incio, fecha_fin, nombre, latitud, longitud);
 		this.id = id;
 		this.descripcion = descripcion;
-		this.usuario = usuario;
 		this.nro_vuelo = nro_vuelo;
 		this.compania = compania;
 		this.aeropuertoEntrada = aeropuertoEntrada;
@@ -65,7 +62,7 @@ public class Vuelo extends Plan{
 	
 	@Override
 	public String toString() {
-		return "Vuelo [id=" + id + "descripcion=" + descripcion + ", usuario=" + usuario + ", nro_vuelo=" + nro_vuelo + ", compania="
+		return "Vuelo [id=" + id + "descripcion=" + descripcion + ", nro_vuelo=" + nro_vuelo + ", compania="
 				+ compania + ", aeropuertoEntrada=" + aeropuertoEntrada + ", aeropuerto_salida=" + aeropuerto_salida
 				+ ", codigoReserva=" + codigoReserva + ", info_avion=" + infoAvion + ", tiempoEscalas=" + tiempoEscalas
 				+ ", getId_viaje()=" + getViaje() + ", getFechaInicio()=" + getFechaInicio()

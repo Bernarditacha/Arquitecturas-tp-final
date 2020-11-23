@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practico.integrador.model.Hotel;
 import com.practico.integrador.model.Vuelo;
 import com.practico.integrador.repository.VueloRepository;
 
@@ -41,7 +40,7 @@ public class VueloController {
 	    @GetMapping("/findByViaje/{viaje}")
 	    public Iterable<Vuelo> findByViaje(@PathVariable("viaje") Long viaje) {
 	        return repository.findByViaje_Id(viaje);
-	    }  
+	    }
 	    
 	    //Alta
 		@ApiOperation(value = "Permite dar de alta un vuelo", response = Vuelo.class)

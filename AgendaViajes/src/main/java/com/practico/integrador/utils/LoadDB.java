@@ -73,7 +73,7 @@ public class LoadDB {
         	Timestamp finV1 = new Timestamp(timeFinV1);
         	
             vueloRepository.save(new Vuelo(new Long(1), viaje1, inicioV1, finV1, "Primer vuelo", "6.217",
-        			"-75.567 6° 13′ 1″", "Vuelo en business", new Long(1), 1, "Aerolineas Argentinas","Olaya Herrera",
+        			"-75.567 6° 13′ 1″", "Vuelo en business", 1, "Aerolineas Argentinas","Olaya Herrera",
         			"Ministro Pistarini", "C502", "Airbus A380", 0));
           
            //Creacion de plan hotel para viaje 1
