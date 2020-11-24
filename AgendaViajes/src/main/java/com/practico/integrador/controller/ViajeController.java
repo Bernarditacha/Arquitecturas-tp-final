@@ -134,8 +134,6 @@ public class ViajeController {
     		    	
     	List<UsuarioPOJO> response = restTemplate.exchange(uri, HttpMethod.GET, entity, new ParameterizedTypeReference<List<UsuarioPOJO>>() {}).getBody(); 
     	List<UsuarioPOJO> usuarios = response;
-    	System.out.println("Usuarios ////////////////////");
-    	System.out.println(usuarios);	    	
     	List<ReporteUsuariosViajes> reportes = repository.findByUsuariosConMasViajesRealizados();
     	List<UsuarioDTO> usuariosARetornar = new ArrayList<>();
     	for(ReporteUsuariosViajes reporte: reportes) {

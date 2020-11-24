@@ -23,7 +23,7 @@ public interface ViajeRepository extends JpaRepository<Viaje, Long> {
 	@Query("select v.ciudadDestino as zona, count(*) as viajes from Viaje v group by v.ciudadDestino order by count(*) desc")
 	List<ReporteZonasVisitadas> findByZonasGeograficasMasVisitadas();
 	
-	@Query("select v.usuario as usuario, count(*) as viajes from Viaje v group by v.usuario order by count(*) desc")
+	@Query("select v.usuario as id, count(*) as viajes from Viaje v group by v.usuario order by count(*) desc")
 	List<ReporteUsuariosViajes> findByUsuariosConMasViajesRealizados();
 	
 	@Query("select v from Viaje v where (v.fechaInicio <= :fechaInicio and v.fechaFin >= :fechaFin) and v.usuario = :usuario")
