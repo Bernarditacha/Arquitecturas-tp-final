@@ -17,7 +17,7 @@ public abstract class Plan {
 	@Id
 	private long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Viaje viaje;
 	
 	@Column(name="fecha_inicio")

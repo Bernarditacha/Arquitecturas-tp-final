@@ -42,7 +42,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("viajes")
 @Api(value = "ViajeControllerJpa", description = "REST API Viajes")
@@ -134,14 +134,12 @@ public class ViajeController {
     		    	
     	List<UsuarioPOJO> response = restTemplate.exchange(uri, HttpMethod.GET, entity, new ParameterizedTypeReference<List<UsuarioPOJO>>() {}).getBody(); 
     	List<UsuarioPOJO> usuarios = response;
-    	System.out.println("Usuarios ////////////////////");
-    	System.out.println(usuarios);	    	
     	List<ReporteUsuariosViajes> reportes = repository.findByUsuariosConMasViajesRealizados();
     	List<UsuarioDTO> usuariosARetornar = new ArrayList<>();
     	for(ReporteUsuariosViajes reporte: reportes) {
     		UsuarioDTO usuario = new UsuarioDTO();
     		for (UsuarioPOJO user: usuarios) {
-    			if(reporte.getId().equals(user.getId())) {
+    			if(reporte.getId() == user.getId()) {
     				usuario.setNombre(user.getUsuario());
     				usuario.setViajes(reporte.getViajes());
     				break;

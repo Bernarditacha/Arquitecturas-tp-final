@@ -38,7 +38,7 @@ public class LoadDB {
         	long timeFinP = dateFinP.getTime();
         	Timestamp finP = new Timestamp(timeFinP);
         	
-            viajeRepository.save(new Viaje(new Long(1), "Vacaciones verano", "Medellin", inicioP, finP, "Viaje con amigos", new Long(4)));
+            viajeRepository.save(new Viaje(new Long(1), "Vacaciones verano", "Medellin", inicioP, finP, "Viaje con amigos", new Long(1)));
             
             //Viaje realizado
         	Date dateInicioR = dateFormat.parse("1/11/2020");
@@ -49,10 +49,10 @@ public class LoadDB {
         	long timeFinR = dateFinR.getTime();
         	Timestamp finR = new Timestamp(timeFinR);
         	
-            viajeRepository.save(new Viaje(new Long(2), "Trabajo", "Buenos Aires", inicioR, finR, "Conferencia presencial", new Long(4)));
+            viajeRepository.save(new Viaje(new Long(2), "Trabajo", "Buenos Aires", inicioR, finR, "Conferencia presencial", new Long(1)));
   
             //Otro usuario
-            viajeRepository.save(new Viaje(new Long(3), "Travel hawai", "Hawai", inicioP, finP, "Vacaciones con familia", new Long(3)));
+            viajeRepository.save(new Viaje(new Long(3), "Travel hawai", "Hawai", inicioP, finP, "Vacaciones con familia", new Long(2)));
 
             Iterable<Viaje> viajes = viajeRepository.findAll();;
             System.out.println("Viajes:");
@@ -90,7 +90,7 @@ public class LoadDB {
             
             
             //Para probar zona geografica mas visitada
-            viajeRepository.save(new Viaje(new Long(4), "Vacaciones verano", "Medellin", inicioP, finP, "Viaje con amigos", new Long(3)));
+            viajeRepository.save(new Viaje(new Long(4), "Vacaciones verano", "Medellin", inicioP, finP, "Viaje con amigos", new Long(2)));
 
         };
     }

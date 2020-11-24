@@ -3,7 +3,7 @@ package com.practico.integrador.utils;
 
 public interface ReporteUsuariosViajes {
 
-	Long getId();
+	long getId();
 	int getViajes();
 	
 }

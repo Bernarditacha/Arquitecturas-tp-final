@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/usuarios")
 @Api(value = "UsuarioControllerJpa", description = "REST API Usuario")
